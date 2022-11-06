@@ -1,12 +1,6 @@
 import React from "react";
 import { initializeApp } from "firebase/app";
-import {
-  collection,
-  doc,
-  setDoc,
-  getFirestore,
-  getDocs,
-} from "firebase/firestore";
+import { collection, getFirestore, getDocs } from "firebase/firestore";
 
 // TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
