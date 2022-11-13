@@ -1,7 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore/lite";
+import { collection, getFirestore, getDocs } from "firebase/firestore";
 
-// TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
   apiKey: "AIzaSyC6yqLD0kQ8eAnT0WoVeWpI2VOXG2cbovQ",
   authDomain: "new-german-firebase-game-7b268.firebaseapp.com",
@@ -11,12 +10,23 @@ const firebaseConfig = {
   appId: "1:7181841876:web:6957591f30b203d4dc5241",
 };
 
-export const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app);
+initializeApp(firebaseConfig);
 
-// async function getCities(db) {
-//   const citiesCol = collection(db, "cities");
-//   const citySnapshot = await getDocs(citiesCol);
-//   const cityList = citySnapshot.docs.map((doc) => doc.data());
-//   return cityList;
-// }
+export const db = getFirestore();
+
+// !==========HELPER FUNCTIONS:=======
+
+// !==========FIRESTORE FUNCTIONS:=======
+
+export async function getAllData() {
+  let dataArray = [];
+
+  const querySnapshot = await getDocs(collection(db, "G-Words"));
+
+  querySnapshot.forEach((doc) => {
+    dataArray.push(doc.data());
+  });
+
+  console.log("dataArray", dataArray);
+  return dataArray;
+}
