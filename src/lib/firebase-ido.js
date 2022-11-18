@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { collection, getFirestore, getDocs } from "firebase/firestore";
+import { collection, getFirestore, getDocs, addDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyC6yqLD0kQ8eAnT0WoVeWpI2VOXG2cbovQ",
@@ -16,6 +16,25 @@ export const db = getFirestore();
 
 // !==========HELPER FUNCTIONS:=======
 
+async function checkIfWordExists(wordG) {
+  const querySnapshot = await getDocs(collection(db, "G-Words"));
+  const oldArray = [];
+  querySnapshot.forEach((doc) => {
+    oldArray.push(doc.data());
+  });
+  const regexString = `^${wordG}$`;
+  const nameRegex = new RegExp(regexString, "i");
+  const isNewWordUnique = oldArray.find((element) => {
+    return nameRegex.test(element.wordG);
+  });
+
+  if (isNewWordUnique) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
 // !==========FIRESTORE FUNCTIONS:=======
 
 export async function getAllData() {
@@ -27,6 +46,20 @@ export async function getAllData() {
     dataArray.push(doc.data());
   });
 
-  console.log("dataArray", dataArray);
   return dataArray;
+}
+
+export async function addNewWord(wordE, Artikel, wordG, plural) {
+  const isNewWordUnique = await checkIfWordExists(wordG);
+  console.log("isNewWordUnique :>> ", isNewWordUnique);
+  const newWord = { wordE, Artikel, wordG, plural };
+
+  if (isNewWordUnique) {
+    await addDoc(collection(db, "G-Words"), {
+      ...newWord,
+    });
+    return "good";
+  } else {
+    return "bad";
+  }
 }

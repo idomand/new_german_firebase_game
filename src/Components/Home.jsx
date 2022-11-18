@@ -1,27 +1,20 @@
 import React, { useState } from "react";
 import AddNewWord from "./AddNewWord";
-import { getAllData } from "../lib/firebase-ido";
-export default function Home() {
-  const [myState, setMyState] = useState([]);
+import "./Home.scss";
+import Navbar from "./Navbar";
+import PlayArtikelGame from "./PlayArtikelGame";
+import ShowWords from "./ShowWords";
 
-  async function getAllWords() {
-    setMyState(await getAllData());
-  }
+export default function Home() {
+  const [section, setSection] = useState("PlayArtikelGame");
 
   return (
-    <>
-      <AddNewWord />
-      <p>this is the new app -- 2.0</p>
-
-      <button onClick={getAllWords}>get words</button>
-
-      {myState.map((word) => {
-        return (
-          <div key={word.wordE}>
-            <h1>{word.wordE}</h1>
-          </div>
-        );
-      })}
-    </>
+    <main className="main-home">
+      <Navbar section={section} setSection={setSection} />
+      <h1>{section}</h1>
+      {section === "ShowWords" && <ShowWords />}
+      {section === "AddNewWord" && <AddNewWord />}
+      {section === "PlayArtikelGame" && <PlayArtikelGame />}
+    </main>
   );
 }

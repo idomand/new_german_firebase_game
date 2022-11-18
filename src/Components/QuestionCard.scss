@@ -1,0 +1,109 @@
+@use "../Styles/" as *;
+
+.WordWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h2,
+  h4 {
+    margin: 5px;
+  }
+}
+
+.quizButton {
+  cursor: pointer;
+  width: 20vw;
+  margin: 10px;
+  height: 100px;
+  transition: 0.3s;
+  font-size: 40px;
+  color: black;
+  border-radius: 15px;
+  border: solid transparent;
+}
+.DerButton {
+  background-color: lighten($red, 30%);
+  &.Der {
+    color: white;
+    background-color: $red;
+    font-weight: bolder;
+  }
+  &:hover {
+    border: solid lighten($red, 30%);
+    background-color: $red;
+  }
+}
+.DieButton {
+  background-color: lighten($blue, 30%);
+  &.Die {
+    background-color: $blue;
+    color: white;
+    font-weight: bolder;
+  }
+  &:hover {
+    border: solid lighten($blue, 30%);
+    background-color: $blue;
+  }
+}
+.DasButton {
+  background-color: lighten($green, 30%);
+  &.Das {
+    background-color: $green;
+    color: white;
+    font-weight: bolder;
+  }
+  &:hover {
+    border: solid lighten($green, 30%);
+    background-color: $green;
+  }
+}
+
+.hintWrapper {
+  margin: 10px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-around;
+  button {
+    @extend .basicButton;
+  }
+}
+
+.rightAnswerDer {
+  box-shadow: 0 0 2em 0.2em $red;
+  border: solid 1px $red;
+}
+.rightAnswerDie {
+  box-shadow: 0 0 2em 0.2em $blue;
+  border: solid 1px $blue;
+}
+.rightAnswerDas {
+  box-shadow: 0 0 2em 0.2em $green;
+  border: solid 1px $green;
+}
+
+.afterClick {
+  &::before,
+  &::after {
+    opacity: 1;
+  }
+  text-shadow: none;
+}
+
+.nextQuestionWrapper {
+  display: flex;
+  justify-content: center;
+  button {
+    @extend .basicButton;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .quizOptionsWrapper button {
+    width: 25vw;
+    height: 50px;
+  }
+  .quizButton {
+    font-size: 20px;
+    height: 50px;
+  }
+}
