@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <>
       <AddNewWord />
-      <p>this is the new app</p>
+      <p>this is the new app -- 2.0</p>
 
       <button onClick={getAllWords}>get words</button>
 
