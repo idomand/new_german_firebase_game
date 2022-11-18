@@ -1,0 +1,9 @@
+.AddNewWordWrapper {
+  border: solid red;
+}
+
+.AddNewWordWrapper form {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+}
